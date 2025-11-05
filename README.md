@@ -2,6 +2,13 @@
 
 An intelligent chatbot application that uses OpenAI's GPT models with Retrieval-Augmented Generation (RAG) to provide accurate responses based on company knowledge. The chatbot includes lead qualification and email notifications.
 
+## Open Source
+
+This project is open source and available under the MIT License. We welcome contributions from the community! Please see:
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute
+- [LICENSE](LICENSE) for the full license text
+
 ## Features
 
 - **AI-Powered Conversations**: Uses OpenAI GPT-4o-mini for natural, context-aware conversations
