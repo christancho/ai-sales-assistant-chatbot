@@ -14,7 +14,7 @@ This project is open source and available under the MIT License. We welcome cont
 - **AI-Powered Conversations**: Uses OpenAI GPT-4o-mini for natural, context-aware conversations
 - **RAG (Retrieval-Augmented Generation)**: Semantic search using PostgreSQL + pgvector with optimized ivfflat indexing for accurate responses from company knowledge base
 - **Intelligent Lead Qualification**:
-  - Automatically collects email, company, budget, timeline, and pain points
+  - Automatically collects name, email, phone, vehicle preferences, budget, and trade-in info
   - Scores leads 0-100 based on qualification criteria
   - Natural conversational flow (asks 1 question per response)
   - Triggers email notification at 60+ score with valid email
@@ -26,30 +26,23 @@ This project is open source and available under the MIT License. We welcome cont
 ## Project Structure
 
 ```
-Boralio-chatbot/
-├── api/                            # Vercel deployment folder
-│   └── index.py                   # FastAPI server for Vercel
-├── api.py                          # FastAPI server (local development)
+ai-sales-assistant-chatbot/
+├── api/                            # FastAPI server package
+│   ├── __init__.py                # Package initialization
+│   └── index.py                   # FastAPI server (local & Vercel)
 ├── chatbot.py                      # Chatbot with RAG and lead qualification
 ├── send_email.py                   # Email notification functionality
-├── init_db.py                      # Database initialization script
+├── index.html                      # Web chat interface
+├── vercel.json                     # Vercel deployment configuration
 ├── requirements.txt                # Python dependencies
 ├── .env.example                    # Environment variables template
-├── docker/                         # Docker configuration
-│   ├── Dockerfile                 # API container image
-│   ├── docker-compose.yml         # Multi-container orchestration
-│   ├── .dockerignore              # Docker build exclusions
-│   ├── .env.docker                # Docker environment template
-│   └── README.md                  # Docker documentation
+├── AGENTS.md                       # AI assistant documentation
 ├── RAG/
-│   ├── boralio_content.json       # Extracted company content
-│   ├── extract_boralio_content.py # Web scraping script
-│   ├── load_to_postgres.py        # Load content to PostgreSQL
-│   ├── test_search_postgres.py    # Test RAG search functionality
-│   ├── diagnose_vector_search.py  # Diagnostic tool for vector search issues
-│   └── fix_vector_search_option1.py # Drop index for small datasets
+│   ├── demo_content.json          # Demo car dealership content (25 entries)
+│   ├── init_db.py                 # Database initialization script
+│   ├── upload_to_db.py            # Load content to PostgreSQL
+│   └── test_search.py             # Test RAG search functionality
 └── testing/
-    ├── widget.html                 # Test HTML for chat widget
     └── test_send_email.py         # Email functionality test
 ```
 
@@ -62,47 +55,12 @@ Boralio-chatbot/
 
 ## Installation
 
-### 🐳 Option 1: Docker (Recommended)
-
-The easiest way to run the Boralio chatbot is using Docker. This sets up everything including PostgreSQL with pgvector and pgAdmin.
+### 💻 Local Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/christancho/boralio-chatbot.git
-   cd boralio-chatbot
-   ```
-
-2. **Set up environment variables**
-   ```bash
-   cp docker/.env.docker .env
-   ```
-   Edit `.env` and add your API keys (OpenAI, Mailgun, etc.)
-
-3. **Start the Docker stack**
-   ```bash
-   cd docker
-   docker-compose up -d
-   ```
-
-4. **Load knowledge base**
-   ```bash
-   docker-compose exec api python RAG/extract_boralio_content.py
-   docker-compose exec api python RAG/load_to_postgres.py
-   ```
-
-5. **Access services**
-   - API: http://localhost:8000
-   - API Docs: http://localhost:8000/docs
-   - pgAdmin: http://localhost:5050
-
-For detailed Docker instructions, see [docker/README.md](docker/README.md)
-
-### 💻 Option 2: Local Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/christancho/boralio-chatbot.git
-   cd boralio-chatbot
+   git clone https://github.com/yourusername/ai-sales-assistant-chatbot.git
+   cd ai-sales-assistant-chatbot
    ```
 
 2. **Create a virtual environment**
@@ -187,12 +145,12 @@ For detailed Docker instructions, see [docker/README.md](docker/README.md)
 
 3. **Create database**:
    ```bash
-   createdb boralio_chatbot
+   createdb ai_sales_assistant_chatbot
    ```
    Or via psql:
    ```sql
    psql -U postgres
-   CREATE DATABASE boralio_chatbot;
+   CREATE DATABASE ai_sales_assistant_chatbot;
    \q
    ```
 
@@ -213,10 +171,10 @@ For detailed Docker instructions, see [docker/README.md](docker/README.md)
 
 5. **Update `.env` file** with your connection string:
    ```
-   DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/boralio_chatbot
+   DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/ai_sales_assistant_chatbot
    ```
 
-#### Option 2: Cloud PostgreSQL (Recommended for Production)
+#### Option 3: Cloud PostgreSQL (Recommended for Production)
 
 Use a managed PostgreSQL service with pgvector support:
 - **Supabase** (free tier available): https://supabase.com/
@@ -242,16 +200,15 @@ This will:
 
 #### Load Knowledge Base
 
-Run the RAG setup scripts to populate your knowledge base:
+Load the demo content to populate your knowledge base:
 ```bash
-python RAG/extract_boralio_content.py
-python RAG/load_to_postgres.py
+python RAG/upload_to_db.py
 ```
 
 #### Test the Setup
 
 ```bash
-python RAG/test_search_postgres.py
+python RAG/test_search.py
 ```
 
 You should see relevant results with similarity scores above 0.4 for good matches.
@@ -284,53 +241,66 @@ This will compare sequential scan vs index scan and provide recommendations.
 
 ### Local Development
 
-You can run the API locally using either of these methods:
+Start the API server:
 
-1. **Using the local development file:**
-   ```bash
-   uvicorn api:app --host 0.0.0.0 --port 8080 --reload
-   ```
-
-2. **Using the Vercel-compatible handler:**
-   ```bash
-   uvicorn api.index:app --host 0.0.0.0 --port 8080 --reload
-   ```
+```bash
+uvicorn api.index:app --host 0.0.0.0 --port 8080 --reload
+```
 
 The API will be available at `http://localhost:8080`
 
+The same `api/index.py` file is used for both local development and Vercel deployment.
+
 ### Vercel Deployment
 
-To deploy to Vercel:
+To deploy to Vercel, you'll need to create a `vercel.json` configuration file:
 
-1. **Push your code to GitHub**
+1. **Create `vercel.json` in the project root:**
+   ```json
+   {
+     "builds": [
+       {
+         "src": "api/index.py",
+         "use": "@vercel/python"
+       }
+     ],
+     "routes": [
+       {
+         "src": "/(.*)",
+         "dest": "api/index.py"
+       }
+     ]
+   }
+   ```
 
-2. **Import to Vercel:**
+2. **Push your code to GitHub**
+
+3. **Import to Vercel:**
    - Go to [Vercel Dashboard](https://vercel.com)
    - Click "New Project"
    - Import your GitHub repository
-   - Select Python framework
 
-3. **Configure environment variables in Vercel:**
+4. **Configure environment variables in Vercel:**
    - Go to Project Settings > Environment Variables
    - Add all variables from your `.env` file:
      - `OPENAI_API_KEY`
-     - `DATABASE_URL`
+     - `DATABASE_URL` (use transaction pooler URL)
      - `MAILGUN_DOMAIN`
      - `MAILGUN_API_KEY`
      - `EMAIL_FROM`
      - `EMAIL_TO`
 
-4. **Deploy:**
+5. **Deploy:**
    - Vercel will automatically deploy your API
-   - It will use the FastAPI handler in `api/index.py`
+   - The API will be available at `https://your-project.vercel.app`
 
-Your API will be available at `https://your-project.vercel.app`
+**Note:** For Vercel deployment, make sure to use the `DATABASE_URL` with the transaction pooler (port 6543) rather than `BATCH_DB_URL`.
 
 ### API Documentation
 
 Once the server is running, visit:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+- Swagger UI: `http://localhost:8080/docs`
+- ReDoc: `http://localhost:8080/redoc`
 
 ### API Endpoints
 
@@ -340,7 +310,7 @@ Send a message to the chatbot
 **Request:**
 ```json
 {
-  "message": "What services does Boralio offer?",
+  "message": "Do you have any SUVs in stock?",
   "session_id": "optional-session-id"
 }
 ```
@@ -348,20 +318,21 @@ Send a message to the chatbot
 **Response:**
 ```json
 {
-  "message": "Boralio offers...",
+  "message": "Yes! We have several SUV models available...",
   "session_id": "generated-or-provided-session-id",
-  "sources": [
-    {
-      "content": "Relevant source content",
-      "metadata": {}
-    }
-  ]
+  "sources": []
 }
 ```
 
-### Testing the Web Widget
+### Testing the Web Interface
 
-Open `testing/widget.html` in a web browser to test the chat widget interface.
+Open `index.html` in a web browser to test the chat interface:
+
+```bash
+open index.html
+```
+
+Make sure the API server is running at `http://localhost:8080` before testing.
 
 ## Development
 
@@ -369,7 +340,7 @@ Open `testing/widget.html` in a web browser to test the chat widget interface.
 
 Test the RAG search functionality:
 ```bash
-python RAG/test_search_postgres.py
+python RAG/test_search.py
 ```
 
 Test email notifications:
@@ -377,19 +348,12 @@ Test email notifications:
 python testing/test_send_email.py
 ```
 
-Diagnose vector search performance:
-```bash
-python RAG/diagnose_vector_search.py
-```
-
 ### Adding New Content
 
-1. Update the content source in `RAG/extract_boralio_content.py`
-2. Run the extraction script
-3. Load the new content to PostgreSQL:
+1. Edit `RAG/demo_content.json` to add/modify knowledge base entries
+2. Reload the content to PostgreSQL:
    ```bash
-   python RAG/extract_boralio_content.py
-   python RAG/load_to_postgres.py
+   python RAG/upload_to_db.py
    ```
 
 ### Vector Search Performance
@@ -401,20 +365,22 @@ The chatbot uses pgvector for semantic similarity search. Performance characteri
 - **Query Optimization**: `ivfflat.probes = 100` for maximum accuracy
 - **Recommended Similarity Threshold**: 0.4+ for relevant matches
 
-For datasets with <1000 vectors, you may optionally drop the index for simpler configuration:
-```bash
-python RAG/fix_vector_search_option1.py
-```
+The demo dataset contains 25+ entries optimized for car dealership support.
 
 ## Deployment
 
 The application can be deployed to various platforms:
 
-- **Heroku**: Use the included `Procfile` (if present)
-- **AWS/GCP/Azure**: Deploy as a containerized application
-- **Vercel/Netlify**: Deploy the API as a serverless function
+- **Vercel** (Recommended): Serverless deployment with automatic scaling - see instructions above
+- **Railway/Render**: Platform-as-a-Service with easy PostgreSQL integration
+- **AWS/GCP/Azure**: Deploy as a containerized application or serverless function
+- **VPS (DigitalOcean/Linode)**: Traditional server deployment with systemd
 
-Make sure to set environment variables in your deployment platform.
+**Important:** Make sure to:
+1. Set all environment variables in your deployment platform
+2. Use the correct `DATABASE_URL` (pooler for production, session mode for batch scripts)
+3. Enable CORS for your frontend domain in production
+4. Set up SSL/HTTPS for secure connections
 
 ## Technologies Used
 
@@ -426,7 +392,7 @@ Make sure to set environment variables in your deployment platform.
 - **Beautiful Soup**: Web scraping for content extraction
 - **Mailgun API**: Transactional email service for lead notifications
 - **Python dotenv**: Environment variable management
-- **Docker + Docker Compose**: Containerization and orchestration
+- **Tailwind CSS**: Utility-first CSS framework for modern UI design
 
 ## Contributing
 
@@ -442,12 +408,7 @@ Make sure to set environment variables in your deployment platform.
 
 **Symptoms**: Chatbot gives irrelevant answers or says "No specific information found"
 
-**Solution**: The issue is likely with the ivfflat index configuration. Run diagnostics:
-```bash
-python RAG/diagnose_vector_search.py
-```
-
-The chatbot automatically sets `ivfflat.probes = 100` for optimal accuracy. This fixes the common issue where default settings (`probes = 1`) only check 1% of the index.
+**Solution**: The chatbot automatically sets `ivfflat.probes = 100` for optimal accuracy. This fixes the common issue where default settings (`probes = 1`) only check 1% of the index.
 
 **Why this happens**: When migrating from Supabase to self-hosted PostgreSQL, the default `ivfflat.probes` setting is lower, reducing search accuracy. Supabase configures this automatically.
 
@@ -466,12 +427,9 @@ The chatbot automatically sets `ivfflat.probes = 100` for optimal accuracy. This
 
 **Solution**:
 ```bash
-# For Docker
-docker-compose restart postgres
-
 # For local PostgreSQL
 # Install pgvector (see PostgreSQL Setup section)
-psql -d boralio_chatbot -c "CREATE EXTENSION vector;"
+psql -d ai_sales_assistant_chatbot -c "CREATE EXTENSION vector;"
 ```
 
 ### Empty Search Results
@@ -485,8 +443,7 @@ psql $DATABASE_URL -c "SELECT COUNT(*) FROM company_faq;"
 
 If count is 0, reload the knowledge base:
 ```bash
-python RAG/extract_boralio_content.py
-python RAG/load_to_postgres.py
+python RAG/upload_to_db.py
 ```
 
 ### Email Notifications Not Sending
@@ -502,7 +459,7 @@ python RAG/load_to_postgres.py
 
 ## License
 
-This project is proprietary software for Boralio.
+This project is open source and available under the MIT License.
 
 ## Support
 
@@ -510,4 +467,4 @@ For questions or issues, please open an issue on GitHub or contact the developme
 
 ---
 
-Built with Claude Code
+**Demo Configuration**: This project includes demo content for Mendieta Auto Group, a fictional car dealership. Replace `RAG/demo_content.json` with your own business content to customize for your use case.

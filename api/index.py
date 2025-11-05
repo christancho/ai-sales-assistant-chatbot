@@ -16,7 +16,7 @@ from typing import List, Dict, Optional
 import uuid
 from chatbot import chat
 
-app = FastAPI(title="Boralio Chatbot API")
+app = FastAPI(title="AI Sales Assistant Chatbot API")
 
 # CORS middleware
 app.add_middleware(
