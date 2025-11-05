@@ -58,4 +58,4 @@ Thumbs.db
 
 # Application specific
 .env
-RAG/boralio_content.json
+RAG/demo_content.json

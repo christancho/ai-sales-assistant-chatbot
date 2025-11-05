@@ -1,6 +1,6 @@
-# AI Lead Scoring Chatbot
+# AI Sales Assistant Chatbot
 
-An intelligent chatbot application that uses OpenAI's GPT models with Retrieval-Augmented Generation (RAG) to provide accurate responses based on company knowledge. The chatbot includes lead qualification and email notifications.
+An intelligent chatbot application that uses OpenAI's GPT models with Retrieval-Augmented Generation (RAG) to provide accurate responses about a company's services, qualify incoming inquiries, and notify the sales team by email for follow up.
 
 ## Open Source
 
