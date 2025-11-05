@@ -11,9 +11,11 @@ if not os.getenv("OPENAI_API_KEY"):
 
 from fastapi import FastAPI, HTTPException, Response, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Dict, Optional
 import uuid
+from pathlib import Path
 from chatbot import chat
 
 app = FastAPI(title="AI Sales Assistant Chatbot API")
@@ -78,5 +80,15 @@ async def health_check():
 # Include router with /api prefix for production, and also at root for local dev
 app.include_router(api_router, prefix="/api")
 app.include_router(api_router)  # Also include at root level for backward compatibility
+
+# Serve index.html at root for Vercel deployment
+@app.get("/")
+async def serve_index():
+    """Serve the chat interface at root URL"""
+    # Look for index.html in parent directory (project root)
+    index_path = Path(__file__).parent.parent / "index.html"
+    if index_path.exists():
+        return FileResponse(index_path, media_type="text/html")
+    return {"message": "Chat interface not found. Please ensure index.html exists in project root."}
 
 # Note: No uvicorn.run() block here. Vercel will use the exported 'app'.
