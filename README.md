@@ -123,7 +123,8 @@ For detailed Docker instructions, see [docker/README.md](docker/README.md)
 
    Edit `.env` and add your credentials:
    - `OPENAI_API_KEY`: Your OpenAI API key from https://platform.openai.com/api-keys
-   - `DATABASE_URL`: PostgreSQL connection string (format: `postgresql://user:pass@host:port/dbname`)
+   - `DATABASE_URL`: PostgreSQL connection string for API/production (pooler, port 6543)
+   - `BATCH_DB_URL`: PostgreSQL connection string for batch scripts (session mode, port 5432)
    - `MAILGUN_DOMAIN`: Your Mailgun domain (e.g., mg.yourdomain.com)
    - `MAILGUN_API_KEY`: Your Mailgun API key
    - `EMAIL_FROM`: Sender email address (must be authorized in Mailgun)
@@ -148,27 +149,29 @@ For detailed Docker instructions, see [docker/README.md](docker/README.md)
    - Click "New Project"
    - Note your database password
 
-2. **Configure Connection**:
-   - For development (IPv6):
-     ```
-     DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supabase.co:5432/postgres
-     ```
-   - For production/Vercel (IPv4):
-     ```
-     DATABASE_URL=postgres://postgres.[YOUR-PROJECT-REF]:[YOUR-PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
-     ```
+2. **Configure Connection Strings**:
+
+   You need TWO connection strings to avoid pooler issues:
+
+   **For batch scripts** (session mode, port 5432):
+   ```bash
+   BATCH_DB_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-REF].supabase.co:5432/postgres
+   ```
+   Use for: `init_db.py`, `upload_to_db.py`, `test_search.py`
+
+   **For API/production** (transaction pooler, port 6543):
+   ```bash
+   DATABASE_URL=postgres://postgres.[YOUR-PROJECT-REF]:[YOUR-PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
+   ```
+   Use for: Vercel deployments, high-concurrency API servers
+
+   > **Note**: Batch scripts will automatically fall back to `DATABASE_URL` if `BATCH_DB_URL` is not set.
 
 3. **Initialize Database**:
    ```bash
-   python init_db.py
+   python RAG/init_db.py
    ```
-   The script will create all necessary tables and enable pgvector.
-
-4. **Enable Connection Pooling**:
-   - Go to Project Settings > Database
-   - Find "Connection Pooling"
-   - Enable pooling and note the connection string
-   - Use this URL in your Vercel environment variables
+   The script will use `BATCH_DB_URL` (or `DATABASE_URL` as fallback) to create tables and enable pgvector.
 
 #### Option 2: Local PostgreSQL Installation (Development)
 
@@ -232,7 +235,7 @@ python init_db.py
 
 This will:
 - Enable the pgvector extension
-- Create the `blog_posts` table with vector embeddings (1536-dimensional vectors)
+- Create the `company_faq` table with vector embeddings (1536-dimensional vectors)
 - Create the `leads` table for qualified leads
 - Create an ivfflat index for similarity search
 - Set up similarity search functions
@@ -477,7 +480,7 @@ psql -d boralio_chatbot -c "CREATE EXTENSION vector;"
 
 **Solution**: Check if knowledge base is loaded:
 ```bash
-psql $DATABASE_URL -c "SELECT COUNT(*) FROM blog_posts;"
+psql $DATABASE_URL -c "SELECT COUNT(*) FROM company_faq;"
 ```
 
 If count is 0, reload the knowledge base:

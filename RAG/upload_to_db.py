@@ -21,10 +21,14 @@ def generate_embedding(text):
 def load_content():
     """Load Boralio content into PostgreSQL"""
 
-    database_url = os.getenv("DATABASE_URL")
+    # Use BATCH_DB_URL for batch operations (session mode, port 5432)
+    # Falls back to DATABASE_URL if BATCH_DB_URL is not set
+    database_url = os.getenv("BATCH_DB_URL") or os.getenv("DATABASE_URL")
     if not database_url:
-        print("❌ DATABASE_URL not found in environment variables")
+        print("❌ BATCH_DB_URL or DATABASE_URL not found in environment variables")
         return
+
+    print(f"🔗 Using: {'BATCH_DB_URL' if os.getenv('BATCH_DB_URL') else 'DATABASE_URL'}")
 
     # Load content
     with open('demo_content.json', 'r') as f:
@@ -40,7 +44,7 @@ def load_content():
 
         # Clear existing data (optional - comment out if you want to keep old data)
         try:
-            cur.execute("DELETE FROM blog_posts WHERE id > 0;")
+            cur.execute("DELETE FROM company_faq WHERE id > 0;")
             conn.commit()
             print("🗑️  Cleared existing data\n")
         except Exception as e:
@@ -57,7 +61,7 @@ def load_content():
 
                 # Prepare data
                 cur.execute("""
-                    INSERT INTO blog_posts (title, content, excerpt, url, embedding, metadata)
+                    INSERT INTO company_faq (title, content, excerpt, url, embedding, metadata)
                     VALUES (%s, %s, %s, %s, %s, %s)
                     RETURNING id;
                 """, (
@@ -81,7 +85,7 @@ def load_content():
         print("\n🎉 Loading complete!")
 
         # Verify count
-        cur.execute("SELECT COUNT(*) FROM blog_posts;")
+        cur.execute("SELECT COUNT(*) FROM company_faq;")
         count = cur.fetchone()[0]
         print(f"📊 Total records in database: {count}")
 

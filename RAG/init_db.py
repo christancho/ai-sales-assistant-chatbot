@@ -14,14 +14,17 @@ load_dotenv()
 def init_database():
     """Initialize database with pgvector extension and create tables"""
 
-    database_url = os.getenv("DATABASE_URL")
+    # Use BATCH_DB_URL for batch operations (session mode, port 5432)
+    # Falls back to DATABASE_URL if BATCH_DB_URL is not set
+    database_url = os.getenv("BATCH_DB_URL") or os.getenv("DATABASE_URL")
 
     if not database_url:
-        print("❌ DATABASE_URL not found in environment variables")
-        print("Please set DATABASE_URL in your .env file")
+        print("❌ BATCH_DB_URL or DATABASE_URL not found in environment variables")
+        print("Please set BATCH_DB_URL or DATABASE_URL in your .env file")
         return
 
     print("🔧 Initializing PostgreSQL database...")
+    print(f"🔗 Using: {'BATCH_DB_URL' if os.getenv('BATCH_DB_URL') else 'DATABASE_URL'}")
     print()
 
     try:
@@ -36,10 +39,10 @@ def init_database():
         print("✅ pgvector extension enabled")
         print()
 
-        # Create blog_posts table with vector column
-        print("📋 Creating blog_posts table...")
+        # Create company_faq table with vector column
+        print("📋 Creating company_faq table...")
         cur.execute("""
-            CREATE TABLE IF NOT EXISTS blog_posts (
+            CREATE TABLE IF NOT EXISTS company_faq (
                 id SERIAL PRIMARY KEY,
                 title TEXT NOT NULL,
                 content TEXT NOT NULL,
@@ -50,14 +53,14 @@ def init_database():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         """)
-        print("✅ blog_posts table created")
+        print("✅ company_faq table created")
         print()
 
         # Create index for vector similarity search
         print("🔍 Creating vector similarity index...")
         cur.execute("""
-            CREATE INDEX IF NOT EXISTS blog_posts_embedding_idx
-            ON blog_posts
+            CREATE INDEX IF NOT EXISTS company_faq_embedding_idx
+            ON company_faq
             USING ivfflat (embedding vector_cosine_ops)
             WITH (lists = 100);
         """)
@@ -67,7 +70,7 @@ def init_database():
         # Create similarity search function
         print("⚙️  Creating similarity search function...")
         cur.execute("""
-            CREATE OR REPLACE FUNCTION match_blog_posts(
+            CREATE OR REPLACE FUNCTION match_company_faq(
                 query_embedding vector(1536),
                 match_threshold float DEFAULT 0.5,
                 match_count int DEFAULT 3
@@ -86,16 +89,16 @@ def init_database():
             BEGIN
                 RETURN QUERY
                 SELECT
-                    blog_posts.id,
-                    blog_posts.title,
-                    blog_posts.content,
-                    blog_posts.excerpt,
-                    blog_posts.url,
-                    blog_posts.metadata,
-                    1 - (blog_posts.embedding <=> query_embedding) as similarity
-                FROM blog_posts
-                WHERE 1 - (blog_posts.embedding <=> query_embedding) > match_threshold
-                ORDER BY blog_posts.embedding <=> query_embedding
+                    company_faq.id,
+                    company_faq.title,
+                    company_faq.content,
+                    company_faq.excerpt,
+                    company_faq.url,
+                    company_faq.metadata,
+                    1 - (company_faq.embedding <=> query_embedding) as similarity
+                FROM company_faq
+                WHERE 1 - (company_faq.embedding <=> query_embedding) > match_threshold
+                ORDER BY company_faq.embedding <=> query_embedding
                 LIMIT match_count;
             END;
             $$;
@@ -111,12 +114,14 @@ def init_database():
                 session_id TEXT UNIQUE NOT NULL,
                 name TEXT,
                 email TEXT,
-                company TEXT,
-                company_size TEXT,
+                phone_number TEXT,
+                vehicle_type TEXT,
+                make_model_preference TEXT,
+                new_or_used TEXT,
                 budget_range TEXT,
-                timeline TEXT,
-                pain_point TEXT,
-                is_decision_maker BOOLEAN,
+                trade_in TEXT,
+                financing_needed TEXT,
+                priorities TEXT,
                 qualification_score INT,
                 conversation_history JSONB,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -127,9 +132,9 @@ def init_database():
         print()
 
         # Check if there's data
-        cur.execute("SELECT COUNT(*) FROM blog_posts;")
+        cur.execute("SELECT COUNT(*) FROM company_faq;")
         count = cur.fetchone()[0]
-        print(f"📈 Current blog_posts count: {count}")
+        print(f"📈 Current company_faq count: {count}")
         print()
 
         # Close connection

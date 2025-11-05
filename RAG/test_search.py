@@ -12,9 +12,11 @@ openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def search(question):
     """Search Boralio content for relevant information"""
 
-    database_url = os.getenv("DATABASE_URL")
+    # Use BATCH_DB_URL for batch operations (session mode, port 5432)
+    # Falls back to DATABASE_URL if BATCH_DB_URL is not set
+    database_url = os.getenv("BATCH_DB_URL") or os.getenv("DATABASE_URL")
     if not database_url:
-        print("❌ DATABASE_URL not found in environment variables")
+        print("❌ BATCH_DB_URL or DATABASE_URL not found in environment variables")
         return []
 
     print(f"\n🔍 Question: {question}\n")
@@ -45,7 +47,7 @@ def search(question):
                 url,
                 metadata,
                 (1 - (embedding <=> %s::vector))::float as similarity
-            FROM blog_posts
+            FROM company_faq
             ORDER BY embedding <=> %s::vector
             LIMIT 3;
         """, (query_embedding, query_embedding))
@@ -70,12 +72,18 @@ def search(question):
         return []
 
 if __name__ == "__main__":
-    # Test queries
+    # Test queries (dealer & vehicle-focused to match demo_content.json)
     test_queries = [
-        "How can you help automate customer support?",
-        "What AI platforms do you work with?",
-        "Do you work with clients outside Montreal?",
-        "How much does an AI chatbot cost?",
+        "Where can I schedule a test drive?",
+        "Do you have a Toyota RAV4 in stock?",
+        "Tell me about Ford F-Series towing capacity",
+        "How do I get financing for a new car?",
+        "What warranty and protection plans do you offer?",
+        "Do you offer certified pre-owned vehicles and inspections?",
+        "What are the current special offers and incentives?",
+        "How can I order OEM parts and accessories?",
+        "Which electric vehicle models and charging support do you provide?",
+        "What is the trade-in appraisal process and how do I get a quote?",
     ]
 
     for query in test_queries:

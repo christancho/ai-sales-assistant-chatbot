@@ -47,16 +47,29 @@ def send_lead_notification(lead_data):
             conversation_transcript += "=" * 60 + "\n"
 
     body = f"""
-New qualified lead from Boralio chatbot!
+New qualified lead from Mendieta Auto Group chatbot!
 
 LEAD INFORMATION
 ================
 Name: {lead_data.get('name')}
-Company: {lead_data.get('company')}
 Email: {lead_data.get('email')}
-Budget: {lead_data.get('budget_range')}
-Timeline: {lead_data.get('timeline')}
-Pain Point: {lead_data.get('pain_point')}
+Phone: {lead_data.get('phone_number')}
+
+VEHICLE PREFERENCES
+===================
+Vehicle Type: {lead_data.get('vehicle_type')}
+Make/Model Preference: {lead_data.get('make_model_preference')}
+New or Used: {lead_data.get('new_or_used')}
+Budget Range: {lead_data.get('budget_range')}
+
+PURCHASE DETAILS
+================
+Trade-In: {lead_data.get('trade_in')}
+Financing Needed: {lead_data.get('financing_needed')}
+Priorities: {lead_data.get('priorities')}
+
+QUALIFICATION
+=============
 Score: {lead_data.get('qualification_score')}/100
 {conversation_transcript}
     """
