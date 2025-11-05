@@ -1,3 +1,14 @@
+import os
+from dotenv import load_dotenv
+
+# Load environment variables early and fail fast if critical secrets are missing.
+load_dotenv()
+if not os.getenv("OPENAI_API_KEY"):
+    raise RuntimeError(
+        "OPENAI_API_KEY environment variable not set.\n"
+        "Please copy .env.example to .env and set OPENAI_API_KEY before starting the server."
+    )
+
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel

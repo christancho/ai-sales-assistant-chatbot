@@ -70,11 +70,13 @@ def extract_demo_content():
     return content_chunks
 
 if __name__ == "__main__":
-    content = extract_boralio_content()
-    
+    # Use the local extractor and write to demo_content.json so other scripts
+    # (e.g. RAG/upload_to_db.py) can find the file.
+    content = extract_demo_content()
+
     # Save to JSON for review
-    with open('boralio_content.json', 'w') as f:
+    with open('demo_content.json', 'w') as f:
         json.dump(content, f, indent=2)
-    
+
     print(f"✅ Extracted {len(content)} content chunks")
-    print("📄 Saved to boralio_content.json")
+    print("📄 Saved to demo_content.json")
