@@ -1,56 +1,297 @@
 [
   {
-    "title": "Company Overview",
-    "content": "We provide AI-powered solutions for businesses. We transform time-consuming workflows into automated systems that run 24/7, reduce errors, and scale with your business. We specialize in AI chatbots, AI agents, AI integrations, and in-house AI implementations.",
-    "url": "https://example.com",
+    "title": "Dealer Overview",
+    "content": "Harrison Auto Group has been serving drivers for over 30 years with a wide selection of new and pre-owned vehicles, competitive financing, and award-winning customer service. We focus on transparency, fair pricing, and long-term customer relationships.",
+    "url": "https://harrisonautogroup.example.com/overview",
     "category": "overview"
   },
   {
-    "title": "AI Chatbot Development",
-    "content": "We build custom AI chatbots that handle customer inquiries 24/7. Stop losing customers to slow response times. Our chatbots integrate with your existing systems and provide instant, accurate responses to common questions. Perfect for customer support, lead qualification, and FAQ automation.",
-    "url": "https://example.com/services/chatbots",
+    "title": "New Vehicle Inventory",
+    "content": "Explore our extensive lineup of the latest sedans, SUVs, trucks, and EVs from top manufacturers. We update our new vehicle inventory daily and offer factory incentives and manufacturer discounts when available.",
+    "url": "https://harrisonautogroup.example.com/inventory/new",
+    "category": "inventory"
+  },
+  {
+    "title": "Certified Pre-Owned Vehicles",
+    "content": "Our Certified Pre-Owned program offers thoroughly inspected vehicles with extended warranty coverage, vehicle history reports, and special financing rates to give you peace of mind on your used-car purchase.",
+    "url": "https://harrisonautogroup.example.com/inventory/cpo",
+    "category": "inventory"
+  },
+  {
+    "title": "Finance Center",
+    "content": "Work with our finance specialists to secure competitive loan and lease options. We offer flexible terms, credit guidance, and partnerships with multiple lenders to help customers of all credit levels get approved.",
+    "url": "https://harrisonautogroup.example.com/finance",
+    "category": "finance"
+  },
+  {
+    "title": "Service & Maintenance",
+    "content": "Our factory-trained technicians provide routine maintenance, diagnostics, and repairs using OEM parts. Schedule oil changes, brakes, tire rotations, and multi-point inspections online or via phone.",
+    "url": "https://harrisonautogroup.example.com/service",
     "category": "service"
   },
   {
-    "title": "AI Agent Systems",
-    "content": "Autonomous AI agents that complete complex workflows without human intervention. These agents can process data, generate reports, send communications, and handle multi-step tasks. Ideal for businesses looking to automate repetitive work that currently takes hours of staff time.",
-    "url": "https://example.com/services/agents",
+    "title": "Parts Department",
+    "content": "Order genuine OEM parts and accessories from our parts department. We stock common maintenance items and can special-order specific components for your vehicle with fast turnaround.",
+    "url": "https://harrisonautogroup.example.com/parts",
+    "category": "parts"
+  },
+  {
+    "title": "Collision Center",
+    "content": "Minor dents to major repairs — our collision center handles bodywork, paint, and frame repairs with insured, certified technicians. We work with most insurance providers to streamline claims and repairs.",
+    "url": "https://harrisonautogroup.example.com/collision",
     "category": "service"
   },
   {
-    "title": "AI Integrations",
-    "content": "We integrate AI capabilities into your existing business tools and workflows. Whether it's adding intelligence to your CRM, automating data entry, or enhancing your analytics, we connect AI to the systems you already use. No need to replace your tech stack.",
-    "url": "https://example.com/services/integrations",
-    "category": "service"
-  },
-  {
-    "title": "In-House AI Implementation",
-    "content": "Deploy AI systems within your infrastructure. We help you build and maintain proprietary AI solutions that stay within your network. Perfect for businesses with data sensitivity requirements or those wanting full control over their AI systems.",
-    "url": "https://boralio.ai/#inhouse",
-    "category": "service"
-  },
-  {
-    "title": "Technology Stack",
-    "content": "We work with leading AI platforms including OpenAI, Anthropic Claude, Google Gemini, and open-source models. Our solutions integrate with popular business tools and can be deployed on-premises or in the cloud. We use modern frameworks like LangChain, CrewAI, and custom agent architectures.",
-    "url": "https://boralio.ai/#platforms",
-    "category": "technology"
-  },
-  {
-    "title": "Location and Contact",
-    "content": "We work remotely with clients worldwide. Contact us to discuss your AI automation needs and get a custom solution designed for your business.",
-    "url": "https://boralio.ai/#contact",
-    "category": "contact"
-  },
-  {
-    "title": "Ideal Clients",
-    "content": "We work best with businesses that have repetitive workflows consuming staff time, slow customer response times affecting revenue, or manual processes prone to errors. If you're spending hours on tasks that could be automated, or losing customers due to delayed responses, Boralio can help.",
-    "url": "https://boralio.ai/#ideal-clients",
+    "title": "Trade-in Appraisal",
+    "content": "Get a fast, fair trade-in estimate online using our instant appraisal tool. We consider market data and vehicle condition to provide transparent offers you can apply toward your next purchase.",
+    "url": "https://harrisonautogroup.example.com/trade-in",
     "category": "sales"
   },
   {
-    "title": "Getting Started",
-    "content": "Getting started with Boralio is simple: 1) Book a discovery call to discuss your needs, 2) We analyze your workflows and propose AI solutions, 3) Build a proof-of-concept to demonstrate value, 4) Deploy and scale the solution across your business. Most projects show ROI within 90 days.",
-    "url": "https://boralio.ai/#process",
+    "title": "Special Offers & Incentives",
+    "content": "Save with seasonal rebates, dealer incentives, and limited-time financing offers. Check our specials page for cash-back deals, low APR financing, and service coupons.",
+    "url": "https://harrisonautogroup.example.com/offers",
+    "category": "specials"
+  },
+  {
+    "title": "Electric Vehicles (EV) Hub",
+    "content": "Our EV hub provides model comparisons, charging guidance, and incentives for electric buyers. We offer home charger installation referrals and trained EV technicians for maintenance and repairs.",
+    "url": "https://harrisonautogroup.example.com/ev",
+    "category": "ev"
+  },
+  {
+    "title": "Fleet & Commercial Sales",
+    "content": "Flexible fleet solutions for small and large businesses: bulk pricing, dedicated account managers, maintenance plans, and fast turnarounds on orders and customization.",
+    "url": "https://harrisonautogroup.example.com/fleet",
+    "category": "fleet"
+  },
+  {
+    "title": "Warranty & Protection Plans",
+    "content": "Protect your investment with extended warranty plans, GAP coverage, and tire & wheel protection. Our advisors help you choose coverage that matches your needs and budget.",
+    "url": "https://harrisonautogroup.example.com/warranty",
+    "category": "warranty"
+  },
+  {
+    "title": "Customer Testimonials",
+    "content": "Read stories from satisfied customers who praise our transparent pricing, friendly sales staff, and reliable service department. Real reviews with photos and verified purchase dates.",
+    "url": "https://harrisonautogroup.example.com/testimonials",
+    "category": "testimonials"
+  },
+  {
+    "title": "Schedule a Test Drive",
+    "content": "Book a test drive online for any vehicle in our inventory. Choose your preferred date, time, and model — we'll have it ready when you arrive.",
+    "url": "https://harrisonautogroup.example.com/test-drive",
     "category": "sales"
+  },
+  {
+    "title": "Buying Guide: Choosing the Right SUV",
+    "content": "A concise guide to compare compact, midsize, and full-size SUVs by fuel economy, cargo space, towing capacity, and safety features to help buyers choose the best fit for lifestyle and budget.",
+    "url": "https://harrisonautogroup.example.com/blog/choosing-the-right-suv",
+    "category": "blog"
+  },
+  {
+    "title": "Buying Guide: Electric vs Hybrid vs Gas",
+    "content": "Understand the tradeoffs between EVs, hybrids, and traditional gasoline vehicles — total cost of ownership, charging, incentives, and performance considerations.",
+    "url": "https://harrisonautogroup.example.com/blog/ev-vs-hybrid-vs-gas",
+    "category": "blog"
+  },
+  {
+    "title": "Seasonal Maintenance Tips",
+    "content": "Prepare your vehicle for winter and summer with seasonal checklists: battery health, tire pressure, coolant levels, and cabin air filters to avoid breakdowns and maintain efficiency.",
+    "url": "https://harrisonautogroup.example.com/blog/seasonal-maintenance",
+    "category": "service"
+  },
+  {
+    "title": "Parts & Accessory Spotlight",
+    "content": "Featured accessories this month: all-weather floor liners, cargo organizers, roof racks, and performance brake pads — installed by our parts team with warranty.",
+    "url": "https://harrisonautogroup.example.com/blog/parts-spotlight",
+    "category": "parts"
+  },
+  {
+    "title": "Career Opportunities",
+    "content": "Join our team — open roles in sales, service, parts, and administration. We provide training, competitive pay, and benefits to build long-term careers in automotive.",
+    "url": "https://harrisonautogroup.example.com/careers",
+    "category": "careers"
+  },
+  {
+    "title": "Community Involvement",
+    "content": "Harrison Auto Group supports local charities and partners with schools for safe driving education. Learn about upcoming community events and sponsorship opportunities.",
+    "url": "https://harrisonautogroup.example.com/community",
+    "category": "community"
+  },
+  {
+    "title": "Buying Process: What to Expect",
+    "content": "A step-by-step overview of the purchase process from initial search and financing pre-approval to delivery and post-sale support so buyers know what to expect.",
+    "url": "https://harrisonautogroup.example.com/buying-process",
+    "category": "sales"
+  },
+  {
+    "title": "Return & Exchange Policy",
+    "content": "Understand our vehicle exchange and return policies, eligibility windows, and the inspection process. We aim for fair outcomes while protecting both customers and the dealer.",
+    "url": "https://harrisonautogroup.example.com/policies",
+    "category": "policy"
+  },
+  {
+    "title": "Low APR Financing Specials",
+    "content": "Limited-time low APR financing offers for well-qualified buyers. Check current APR ranges and eligibility requirements, and apply online for instant pre-approval.",
+    "url": "https://harrisonautogroup.example.com/finance/specials",
+    "category": "finance"
+  },
+  {
+    "title": "Roadside Assistance & Emergency Services",
+    "content": "Enroll in our roadside assistance program for towing, jump starts, flat tire changes, and lockout service. Available as an add-on to select warranty packages.",
+    "url": "https://harrisonautogroup.example.com/roadside",
+    "category": "service"
+  },
+  {
+    "title": "Customer Success Story: Fleet Upgrade",
+    "content": "Case study: How a local delivery company reduced fuel costs and maintenance downtime by upgrading to a mixed fleet of efficient vans and scheduled service plans through our fleet program.",
+    "url": "https://harrisonautogroup.example.com/case-studies/fleet-upgrade",
+    "category": "case-study"
+  }
+  ,
+  {
+    "title": "Ford F-Series (Pickup Facts)",
+    "content": "The Ford F-Series has been one of North America's best-selling trucks for decades. Common facts: wide range of powertrains from V6 to V8 and diesel in some trims, high towing and payload capacities, and multiple cab/bed configurations suitable for work and personal use.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/ford-f-series",
+    "category": "car-fact"
+  },
+  {
+    "title": "Chevrolet Silverado (Pickup Facts)",
+    "content": "Chevrolet Silverado is a full-size pickup known for durable frame construction, V6 and V8 engine options, and modern infotainment across trims. Popular for towing and fleet use with proven V8 torque for heavy-duty applications.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/chevrolet-silverado",
+    "category": "car-fact"
+  },
+  {
+    "title": "Ram Pickup (Pickup Facts)",
+    "content": "The Ram pickup line emphasizes a comfortable cabin and class-leading ride quality for a full-size truck. Available with V6, V8, and diesel engines, Ram trucks often score highly for towing tech and interior refinement.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/ram-pickup",
+    "category": "car-fact"
+  },
+  {
+    "title": "Toyota RAV4 (Compact SUV Facts)",
+    "content": "The Toyota RAV4 is a top-selling compact SUV notable for reliability, practical cargo space, and available hybrid powertrains that improve fuel economy. Strong resale value and family-friendly features make it popular across buyers.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/toyota-rav4",
+    "category": "car-fact"
+  },
+  {
+    "title": "Honda CR-V (Compact SUV Facts)",
+    "content": "The Honda CR-V offers a roomy cabin, efficient engines, and advanced safety technology. Known for its comfortable ride and strong fuel economy, it's a staple in the compact SUV segment.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/honda-cr-v",
+    "category": "car-fact"
+  },
+  {
+    "title": "Toyota Camry (Midsize Sedan Facts)",
+    "content": "The Toyota Camry blends comfort, reliability, and available hybrid power to deliver strong fuel economy. Popular trims include comfortable interior packages and advanced driver-assist features.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/toyota-camry",
+    "category": "car-fact"
+  },
+  {
+    "title": "Honda Civic (Compact Car Facts)",
+    "content": "The Honda Civic is known for nimble handling, efficient engines (including turbo options), and a range of body styles over the years. Modern Civics include advanced infotainment and high safety ratings.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/honda-civic",
+    "category": "car-fact"
+  },
+  {
+    "title": "Nissan Rogue (Compact SUV Facts)",
+    "content": "The Nissan Rogue emphasizes comfort, a user-friendly interior, and advanced driver assistance systems. It offers a balanced ride for urban families and competitive cargo space for its class.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/nissan-rogue",
+    "category": "car-fact"
+  },
+  {
+    "title": "Chevrolet Equinox (Compact SUV Facts)",
+    "content": "The Chevy Equinox is a compact crossover with available efficient engines and a focus on value. Known for easy-to-use technology and comfortable seating for small families.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/chevrolet-equinox",
+    "category": "car-fact"
+  },
+  {
+    "title": "GMC Sierra (Pickup Facts)",
+    "content": "The GMC Sierra shares platforms with the Silverado but targets buyers seeking premium trims, upscale interiors, and optional diesel power for towing and long-haul efficiency.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/gmc-sierra",
+    "category": "car-fact"
+  },
+  {
+    "title": "Toyota Corolla (Compact Car Facts)",
+    "content": "The Toyota Corolla is valued for fuel efficiency, low ownership costs, and a reputation for durability. Available in sedan and hatchback forms with efficient powertrains including hybrid variants.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/toyota-corolla",
+    "category": "car-fact"
+  },
+  {
+    "title": "Ford Escape (Compact SUV Facts)",
+    "content": "The Ford Escape offers multiple powertrains, including hybrid and plug-in hybrid options, combining practicality with modern tech and a comfortable driving experience for daily commuting.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/ford-escape",
+    "category": "car-fact"
+  },
+  {
+    "title": "Subaru Outback (Crossover Facts)",
+    "content": "The Subaru Outback is a wagon-crossover known for standard all-wheel drive, elevated ground clearance, and a suite of safety features, making it popular among outdoor and adventure-oriented buyers.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/subaru-outback",
+    "category": "car-fact"
+  },
+  {
+    "title": "Toyota Tacoma (Midsize Truck Facts)",
+    "content": "The Toyota Tacoma is a durable midsize pickup appreciated for off-road capability in TRD trims, reliable drivetrain options, and strong resale value among compact truck buyers.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/toyota-tacoma",
+    "category": "car-fact"
+  },
+  {
+    "title": "Hyundai Tucson (Compact SUV Facts)",
+    "content": "The Hyundai Tucson combines striking design with a technology-rich interior. Available hybrid variants and long warranty coverage make it an appealing value proposition.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/hyundai-tucson",
+    "category": "car-fact"
+  },
+  {
+    "title": "Jeep Grand Cherokee (SUV Facts)",
+    "content": "The Jeep Grand Cherokee pairs off-road capability with upscale interior options. Available 4x4 systems and V6/V8 engines cater to buyers seeking both luxury and trail readiness.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/jeep-grand-cherokee",
+    "category": "car-fact"
+  },
+  {
+    "title": "Subaru Forester (Compact SUV Facts)",
+    "content": "The Subaru Forester offers standard all-wheel drive, a spacious cabin, and strong safety scores. It's popular among buyers prioritizing practicality and year-round traction.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/subaru-forester",
+    "category": "car-fact"
+  },
+  {
+    "title": "Tesla Model Y (EV Facts)",
+    "content": "The Tesla Model Y is a compact electric SUV with long electric range options, fast-charging capability on Tesla's network, and over-the-air software updates that add features post-sale.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/tesla-model-y",
+    "category": "car-fact"
+  },
+  {
+    "title": "Kia Telluride (Midsize SUV Facts)",
+    "content": "The Kia Telluride is praised for roomy seating for up to eight, upscale interiors, and strong V6 performance. It has quickly become a favorite in the midsize three-row SUV category.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/kia-telluride",
+    "category": "car-fact"
+  },
+  {
+    "title": "Ford Explorer (Midsize SUV Facts)",
+    "content": "The Ford Explorer offers three-row seating, multiple engine choices including turbocharged options, and modern connectivity features, making it a versatile family hauler.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/ford-explorer",
+    "category": "car-fact"
+  },
+  {
+    "title": "Mazda CX-5 (Compact SUV Facts)",
+    "content": "The Mazda CX-5 emphasizes driving dynamics and premium interior materials for its class. Turbocharged engine options deliver peppy performance while maintaining good fuel economy.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/mazda-cx-5",
+    "category": "car-fact"
+  },
+  {
+    "title": "Volkswagen Tiguan (Compact SUV Facts)",
+    "content": "The Volkswagen Tiguan stands out for its European driving feel and optional third-row seating in some markets. It balances practicality with a refined ride and tech-focused cabin.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/volkswagen-tiguan",
+    "category": "car-fact"
+  },
+  {
+    "title": "Nissan Altima (Midsize Sedan Facts)",
+    "content": "The Nissan Altima is a fuel-efficient midsize sedan offering comfortable seating and available all-wheel drive on select trims, positioning it as a practical alternative to compact SUVs.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/nissan-altima",
+    "category": "car-fact"
+  },
+  {
+    "title": "Hyundai Santa Fe (Midsize SUV Facts)",
+    "content": "The Hyundai Santa Fe offers two-row midsize utility with available turbo and hybrid powertrains, a feature-rich cabin, and strong warranty coverage to lower long-term ownership risk.",
+    "url": "https://harrisonautogroup.example.com/vehicle-facts/hyundai-santa-fe",
+    "category": "car-fact"
   }
 ]
