@@ -253,9 +253,9 @@ The same `api/index.py` file is used for both local development and Vercel deplo
 
 ### Vercel Deployment
 
-To deploy to Vercel, you'll need to create a `vercel.json` configuration file:
+The project is configured to deploy both the web chat interface and API to Vercel using `vercel.json`:
 
-1. **Create `vercel.json` in the project root:**
+1. **Configuration is already included** - The `vercel.json` file routes requests as follows:
    ```json
    {
      "builds": [
@@ -266,12 +266,22 @@ To deploy to Vercel, you'll need to create a `vercel.json` configuration file:
      ],
      "routes": [
        {
-         "src": "/(.*)",
+         "src": "/api/chat",
          "dest": "api/index.py"
+       },
+       {
+         "src": "/api/health",
+         "dest": "api/index.py"
+       },
+       {
+         "src": "/(.*)",
+         "dest": "/$1"
        }
      ]
    }
    ```
+   - `/api/*` routes go to the Python FastAPI backend
+   - All other routes serve static files (including `index.html`)
 
 2. **Push your code to GitHub**
 
@@ -284,17 +294,26 @@ To deploy to Vercel, you'll need to create a `vercel.json` configuration file:
    - Go to Project Settings > Environment Variables
    - Add all variables from your `.env` file:
      - `OPENAI_API_KEY`
-     - `DATABASE_URL` (use transaction pooler URL)
+     - `DATABASE_URL` (use transaction pooler URL - port 6543)
      - `MAILGUN_DOMAIN`
      - `MAILGUN_API_KEY`
      - `EMAIL_FROM`
      - `EMAIL_TO`
 
 5. **Deploy:**
-   - Vercel will automatically deploy your API
-   - The API will be available at `https://your-project.vercel.app`
+   - Vercel will automatically deploy on every push to main
+   - Your deployment will be available at `https://your-project.vercel.app`
 
-**Note:** For Vercel deployment, make sure to use the `DATABASE_URL` with the transaction pooler (port 6543) rather than `BATCH_DB_URL`.
+6. **Access your application:**
+   - **Chat Interface**: `https://your-project.vercel.app/` or `https://your-project.vercel.app/index.html`
+   - **API Health**: `https://your-project.vercel.app/api/health`
+   - **API Docs**: `https://your-project.vercel.app/api/docs`
+   - **Chat API**: `https://your-project.vercel.app/api/chat`
+
+**Important Notes:**
+- The `index.html` automatically detects the environment and uses `/api` endpoints on Vercel, `http://localhost:8080` for local development
+- For Vercel deployment, use `DATABASE_URL` with the transaction pooler (port 6543) rather than `BATCH_DB_URL`
+- The API is available at both `/chat` and `/api/chat` for backward compatibility
 
 ### API Documentation
 
@@ -326,13 +345,25 @@ Send a message to the chatbot
 
 ### Testing the Web Interface
 
-Open `index.html` in a web browser to test the chat interface:
+**Local Development:**
+
+Open `index.html` in a web browser to test the chat interface locally:
 
 ```bash
 open index.html
+# or
+python -m http.server 3000  # then visit http://localhost:3000
 ```
 
-Make sure the API server is running at `http://localhost:8080` before testing.
+Make sure the API server is running at `http://localhost:8080` before testing. The interface automatically detects `localhost` and connects to the local API.
+
+**Production (Vercel):**
+
+Once deployed to Vercel, the chat interface is automatically available at your deployment URL:
+- `https://your-project.vercel.app/`
+- `https://your-project.vercel.app/index.html`
+
+The interface automatically uses `/api` endpoints when running on Vercel.
 
 ## Development
 
