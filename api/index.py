@@ -9,7 +9,7 @@ if not os.getenv("OPENAI_API_KEY"):
         "Please copy .env.example to .env and set OPENAI_API_KEY before starting the server."
     )
 
-from fastapi import FastAPI, HTTPException, Response
+from fastapi import FastAPI, HTTPException, Response, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Optional
@@ -39,12 +39,16 @@ class ChatResponse(BaseModel):
 # In-memory session storage
 sessions = {}
 
+# Create API router with /api prefix for Vercel deployment
+# For local development, routes are at root level
+api_router = APIRouter()
+
 # Explicit OPTIONS handler (if needed)
-@app.options("/chat")
+@api_router.options("/chat")
 async def chat_options():
     return Response(status_code=200)
 
-@app.post("/chat", response_model=ChatResponse)
+@api_router.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
     """Chat endpoint for web widget"""
     # Get or create session
@@ -67,8 +71,12 @@ async def chat_endpoint(request: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/health")
+@api_router.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
+# Include router with /api prefix for production, and also at root for local dev
+app.include_router(api_router, prefix="/api")
+app.include_router(api_router)  # Also include at root level for backward compatibility
 
 # Note: No uvicorn.run() block here. Vercel will use the exported 'app'.

@@ -136,7 +136,10 @@
 
     <script>
         let sessionId = null;
-        const API_URL = 'http://localhost:8080';
+        // Auto-detect API URL: use /api for production (Vercel), localhost:8080 for local dev
+        const API_URL = window.location.hostname === 'localhost'
+            ? 'http://localhost:8080'
+            : '/api';
         const messagesContainer = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');

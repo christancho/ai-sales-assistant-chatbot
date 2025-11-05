@@ -7,8 +7,16 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/chat",
       "dest": "api/index.py"
+    },
+    {
+      "src": "/api/health",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }
